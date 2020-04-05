@@ -29,7 +29,7 @@ import WelcomeUI from './pages/welcome.js'
 const App: () => React$Node = () => {
   return (
     <>
-        <WelcomeUI style={styles.viewPageBox}/>
+        <WelcomeUI style={styles.viewPageBox} />
     </>
   );
 };
