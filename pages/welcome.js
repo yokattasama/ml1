@@ -9,41 +9,22 @@ import ViewPage from '../components/viewpage1.js'
 import Progress from '../components/progress.js'
 export default class WelcomeUI extends React.Component {
     state = {
-        count: 1,
-        token: 1000,
-        pageNumber: 0,
-        index: 0,
-        shouldLast: false,
-        shouldNext: false
+        shouldChange: true,
+        progressId: 0
     }
-
-    goLast = () => {
-        let newIndex = this.state.index
-
+    changeTo = (id) => {
+        console.log('获取到id', id)
         this.setState({
-            index: newIndex >= 1 ? newIndex - 1 :  newIndex
-        }, function () {
-//            console.log(this.state.index)
+            progressId: id
         })
     }
-    goNext = () => {
-            let newIndex = this.state.index
-            this.setState({
-                index: newIndex <= 3 ? newIndex + 1 :  newIndex
-            }, function () {
-//                 console.log(this.state.index)
-             })
-        }
+
     render () {
         return (
             <>
-                <Text>{this.state.index}</Text>
-                <ViewPage index={this.state.index} />
-                <Progress rate={this.state.pageNumber / 5}/>
-                <View style={styles.buttons}>
-                    <Button title='上一页' onPress={this.goLast} color="#373" disabled={this.state.shouldLast}/>
-                    <Button title='下一页' onPress={this.goNext} color="#9a9" disabled={this.state.shouldNext}/>
-                </View>
+                <Text>父组件传出去的id {this.state.progressId}</Text>
+                <ViewPage changeToPage={(index) => this.changeTo(index)}/>
+                <Progress rate={(this.state.progressId + 1) / 5}/>
             </>
         )
     }
@@ -68,11 +49,5 @@ const styles = StyleSheet.create({
     },
     color4: {
         backgroundColor: '#855'
-    },
-    buttons: {
-        position: 'absolute',
-        bottom: 100,
-        flex: 1,
-        width: '100%'
     }
 })
